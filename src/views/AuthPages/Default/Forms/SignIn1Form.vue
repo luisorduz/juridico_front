@@ -6,7 +6,7 @@
           <label for="emailInput">Correo electrónico</label>
           <input type="email" :class="'form-control mb-0' +(errors.length > 0 ? ' is-invalid' : '')"
                  id="emailInput" aria-describedby="emailHelp"
-                 v-model="user.usr_email" placeholder="Entra el re puto correo" required>
+                 v-model="user.usr_email" placeholder="Correo" required>
           <div class="invalid-feedback">
             <span>{{ errors[0] }}</span>
           </div>
@@ -14,13 +14,13 @@
       </ValidationProvider>
       <ValidationProvider vid="password" name="Password" rules="required" v-slot="{ errors }">
         <div class="form-group">
-          <label for="passwordInput">Password</label>
+          <label for="passwordInput">Contraseña</label>
           <router-link to="/auth/password-reset1" class="float-right">
-            Forgot password?
+            Olvidó la contraseña?
           </router-link>
           <input type="password"  :class="'form-control mb-0' +(errors.length > 0 ? ' is-invalid' : '')"
                  id="passwordInput"
-                 v-model="user.usr_password" placeholder="Password" required>
+                 v-model="user.usr_password" placeholder="Contraseña" required>
           <div class="invalid-feedback">
             <span>{{ errors[0] }}</span>
           </div>
@@ -29,18 +29,18 @@
       <div class="d-inline-block w-100">
         <div class="custom-control custom-checkbox d-inline-block mt-2 pt-1">
           <input type="checkbox" class="custom-control-input" :id="formType">
-          <label class="custom-control-label" :for="formType">Remember Me</label>
+          <label class="custom-control-label" :for="formType">Recuerdame</label>
         </div>
-        <button type="submit" class="btn btn-primary float-right">Sign in</button>
+        <button type="submit" class="btn btn-primary float-right">Iniciar Sesión</button>
       </div>
       <div class="sign-info">
           <span class="dark-color d-inline-block line-height-2">
-            Don't have an account?
+            No tienes una cuenta?
             <router-link to="/dark/auth/sign-up1" class="iq-waves-effect pr-4" v-if="$route.meta.dark">
-              Sign up
+              Registrate
             </router-link>
             <router-link to="/auth/sign-up1" class="iq-waves-effect pr-4" v-else>
-              Sign up
+              Registrate
             </router-link>
           </span>
         <social-login-form></social-login-form>
@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import SocialLoginForm from './SocialLoginForm'
 import { mapGetters } from 'vuex'
 import axios from 'axios'
@@ -81,11 +82,14 @@ export default {
     login () {
       console.log('weee', this.user.usr_email)
       axios.post('/login', this.user).then(res => {
-        console.log(res.data.credentials)
+        console.log(res.data)
         if (res.data.status_code === 200) {
+          const token = res.data.token
+          localStorage.setItem('access_token', token)
+          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
           this.$router.push({ name: 'dashboard.home-1' })
         } else {
-          alert('Credenciales no validas')
+          Vue.swal('Credenciales no validas')
         }
       })
     }

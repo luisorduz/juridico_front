@@ -568,6 +568,8 @@ export default {
   mounted () {
     xray.index()
     body[0].classList.add('sidebar-main-menu')
+    localStorage.removeItem('access_token')
+    this.$router.push({ name: 'auth1.sign-in1' })
   },
   destroyed () {
     body[0].classList.remove('sidebar-main-menu')

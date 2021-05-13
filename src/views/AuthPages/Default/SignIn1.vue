@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="mb-0">Sign in</h1>
-    <p>Enter your email address and password to access admin panel puto.</p>
+    <h1 class="mb-0">Iniciar Sesión</h1>
+    <p>Ingresa tus credenciales.</p>
     <sign-in1-form></sign-in1-form>
   </div>
 </template>
@@ -18,7 +18,7 @@ export default {
   mounted () {
     const loggedIn = localStorage.getItem('access_token')
     if (loggedIn !== undefined && loggedIn !== null) {
-      this.$router.push({ name: 'mini.dashboard.home-2' })
+      this.$router.push({ name: 'dashboard.home-1' })
     }
   },
   methods: {

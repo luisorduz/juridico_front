@@ -81,6 +81,7 @@ import AddUser from '../views/User/AddUser'
 import UserList from '../views/User/UserList'
 /* Process View */
 import AddProcess from '../views/Process/AddProcess'
+import ProcessList from '../views/Process/ProcessList'
 /* Todo */
 import Callback from '../views/AuthPages/Default/Callback'
 /* Plugins Views */
@@ -526,6 +527,18 @@ const processChildRoute = (prop, mode = false) => [
     name: prop + '.add',
     meta: { dark: mode, auth: true, name: 'Add Porcess' },
     component: AddProcess
+  },
+  {
+    path: 'process-edit/:id',
+    name: prop + '.edit',
+    meta: { dark: mode, auth: true, name: 'Edit Porcess' },
+    component: AddProcess
+  },
+  {
+    path: 'process-list',
+    name: prop + '.list',
+    meta: { dark: mode, auth: true, name: 'Porcess List' },
+    component: ProcessList
   }
 ]
 

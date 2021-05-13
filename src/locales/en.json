@@ -17,7 +17,7 @@
     "email": "Email",
     "inbox": "Inbox",
     "emailCompose": "Email Compose",
-    "calendar": "Calendario",
+    "calendar": "Calendario de Audiencias",
     "doctor": "Usuarios",
     "process": "Procesos Juridicos",
     "doctorProfile": "Doctor Profile",
@@ -25,6 +25,7 @@
     "doctorAdd": "Agregar Usuario",
     "processAdd": "Agregar Proceso juridico",
     "doctorList": "Todos los Usuarios",
+    "processList": "Lista de Procesos",
     "components": "Components",
     "uiElements": "UI Elements",
     "color": "Color",
@@ -92,8 +93,7 @@
     "plugins": "Plugins",
     "datepicker": "Datepicker",
     "select": "Select",
-    "draggable": "Draggable",
-    "chat": "Procesos Juridicos"
+    "draggable": "Draggable"
   },
   "nav": {
     "allNotifications": "All Notifications",

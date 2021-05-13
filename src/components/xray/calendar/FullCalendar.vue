@@ -3,6 +3,9 @@
                    :header="header"
                    :plugins="calendarPlugins"
                    :events="calendarEvents"
+                   :selectable="true"
+                    @select="handleSelect"
+                    @clickDate="handleDateClick"
                    time-zone="UTC"
   />
 </template>
@@ -12,6 +15,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import listPlugin from '@fullcalendar/list'
+import Vue from 'vue'
 export default {
   name: 'FullCalendar',
   props: {
@@ -46,6 +50,15 @@ export default {
   computed: {
   },
   methods: {
+    handleDateClick (e) {
+      console.log('handleDateClick: ' + this.calendarEvents)
+    },
+    handleSelect (e) {
+      console.log('handleSelect: ' + Object.values(this.calendarEvents))
+      console.log('this.calendarEvents: ' + this.calendarEvents[0])
+      console.log('handleSelect: ' + Object.keys(e))
+      Vue.swal('Audiencia agendada al proceso correctamente')
+    }
   }
 }
 </script>

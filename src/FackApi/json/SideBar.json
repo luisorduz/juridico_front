@@ -82,7 +82,7 @@
     "link": "",
     "class_name": "",
     "is_icon_class": true,
-    "icon": "ri-user-3-fill",
+    "icon": "ri-file-list-fill",
     "children": [
       {
         "title": "Add Proces",
@@ -90,6 +90,17 @@
         "is_active": false,
         "link": {
           "name" : "process.add"
+        },
+        "class_name": "",
+        "is_icon_class": true,
+        "icon": "ri-user-add-fill"
+      },
+      {
+        "title": "Process List",
+        "name": "sidebar.processList",
+        "is_active": false,
+        "link": {
+          "name" : "process.list"
         },
         "class_name": "",
         "is_icon_class": true,
@@ -108,18 +119,6 @@
     "class_name": "",
     "is_icon_class": true,
     "icon": "ri-calendar-event-fill"
-  },
-  {
-    "title": "Chat",
-    "name": "sidebar.chat",
-    "is_heading": false,
-    "is_active": false,
-    "link": {
-      "name" : "app.chat"
-    },
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": "ri-file-list-fill"
   },
 
   {

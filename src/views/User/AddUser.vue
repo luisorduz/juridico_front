@@ -21,17 +21,17 @@
                         </div>
                       </ValidationProvider>
                     </b-form-group>
-                    <b-form-group class="col-md-6" label="Primer Apelldio:" label-for="usr_lastname_first">
-                      <ValidationProvider name="Primer Apelldio" rules="required" v-slot="{ errors }">
-                        <b-form-input v-model="user.usr_lastname_first" type="text" placeholder="Primer Apelldio" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
+                    <b-form-group class="col-md-6" label="Segundo Nombre:" label-for="usr_name_first">
+                      <ValidationProvider name="Segundo Nombre" rules="required" v-slot="{ errors }">
+                        <b-form-input v-model="user.usr_name_last" type="text" placeholder="Segundo Nombre" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
                         <div class="invalid-feedback">
                           <span>{{ errors[0] }}</span>
                         </div>
                       </ValidationProvider>
                     </b-form-group>
-                    <b-form-group class="col-md-6" label="Segundo Nombre:" label-for="usr_name_first">
-                      <ValidationProvider name="Segundo Nombre" rules="required" v-slot="{ errors }">
-                        <b-form-input v-model="user.usr_name_last" type="text" placeholder="Segundo Nombre" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
+                    <b-form-group class="col-md-6" label="Primer Apelldio:" label-for="usr_lastname_first">
+                      <ValidationProvider name="Primer Apelldio" rules="required" v-slot="{ errors }">
+                        <b-form-input v-model="user.usr_lastname_first" type="text" placeholder="Primer Apelldio" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
                         <div class="invalid-feedback">
                           <span>{{ errors[0] }}</span>
                         </div>
@@ -105,6 +105,7 @@
 </template>
 <script>
 import { xray } from '../../config/pluginInit'
+import Vue from 'vue'
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:8000/api'
 
@@ -177,9 +178,10 @@ export default {
       axios.post('/register', this.user).then(res => {
         console.log(res.data.credentials)
         if (res.data.status_code === 200) {
+          Vue.swal('Usuario agregado correctamente')
           this.$router.push({ name: 'doctor.list' })
         } else {
-          alert('Datos no validos')
+          Vue.swal('Datos no validos')
         }
       })
     }
