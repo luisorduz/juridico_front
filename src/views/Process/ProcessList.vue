@@ -134,10 +134,10 @@
                     <br>
                     <b-row class="col-md-12">
                       <b-col md="2" class="text-sm-right"><b>Primer Nombre:</b></b-col>
-                      <b-col v-if="row.item.editable!=0">{{ row.item.prore_applicant_name_first }}</b-col>
+                      <b-col v-if="row.item.editable!=0">{{ row.item.prore_warranty_name_first }}</b-col>
                         <input
                           type="text"
-                          v-model="row.item.prore_applicant_name_first"
+                          v-model="row.item.prore_warranty_name_first"
                           v-else
                           class="form-control col-md-2"
                         />
@@ -150,10 +150,10 @@
                           class="form-control col-md-2"
                         />
                         <b-col md="2" class="text-sm-right"><b>Primer Apellido:</b></b-col>
-                        <b-col v-if="row.item.editable!=0">{{ row.item.prore_applicant_lastname_first }}</b-col>
+                        <b-col v-if="row.item.editable!=0">{{ row.item.prore_warranty_lastname_first }}</b-col>
                         <input
                           type="text"
-                          v-model="row.item.prore_applicant_lastname_first"
+                          v-model="row.item.prore_warranty_lastname_first"
                           v-else
                           class="form-control col-md-2"
                         />
@@ -169,10 +169,10 @@
                           class="form-control col-md-2"
                         />
                       <b-col md="2" class="text-sm-right"><b>Telefono/Celular:</b></b-col>
-                      <b-col v-if="row.item.editable!=0">{{ row.item.prore_applicant_phone }}</b-col>
+                      <b-col v-if="row.item.editable!=0">{{ row.item.prore_warranty_phone }}</b-col>
                         <input
                           type="text"
-                          v-model="row.item.prore_applicant_phone"
+                          v-model="row.item.prore_warranty_phone"
                           v-else
                           class="form-control col-md-2"
                         />

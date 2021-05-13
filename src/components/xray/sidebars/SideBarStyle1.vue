@@ -3,7 +3,7 @@
     <div class="iq-sidebar-logo d-flex justify-content-between">
       <router-link :to="homeURL">
         <img :src="logo" class="img-fluid" alt="logo">
-        <span>XRay</span>
+        <span>Gocho</span>
       </router-link>
       <div class="iq-menu-bt-sidebar" v-if="toggleButton">
         <div class="iq-menu-bt align-self-center">

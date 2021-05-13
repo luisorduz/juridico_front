@@ -11,7 +11,6 @@
           <template slot="responsiveRight">
             <ul class="navbar-nav ml-auto navbar-list">
               <li class="nav-item">
-                <a class="search-toggle iq-waves-effect language-title" href="#"><img :src="selectedLang.image" alt="img-flaf" class="img-fluid mr-1" style="height: 16px; width: 16px;" /> {{ selectedLang.title }} <i class="ri-arrow-down-s-line"></i></a>
                 <div class="iq-sub-dropdown">
                   <a class="iq-sub-card" href="javascript:void(0)" v-for="(lang, i) in langsOptions" :key="`Lang${i}`" @click="langChange(lang)">
                     <img :src="lang.image" alt="img-flaf" class="img-fluid mr-2" />{{ lang.title }}
@@ -22,10 +21,6 @@
                 <a href="#" class="iq-waves-effect" id="btnFullscreen"><i class="ri-fullscreen-line"></i></a>
               </li>
               <li class="nav-item">
-                <a href="#" class="search-toggle iq-waves-effect">
-                  <i class="ri-notification-3-fill"></i>
-                  <span class="bg-danger dots"></span>
-                </a>
                 <div class="iq-sub-dropdown">
                   <div class="iq-card shadow-none m-0">
                     <div class="iq-card-body p-0 ">
@@ -49,10 +44,6 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a href="#" class="search-toggle iq-waves-effect">
-                  <i class="ri-mail-open-fill"></i>
-                  <span class="bg-primary count-mail"></span>
-                </a>
                 <div class="iq-sub-dropdown">
                   <div class="iq-card shadow-none m-0">
                     <div class="iq-card-body p-0 ">
@@ -82,7 +73,7 @@
                 <a href="#" class="search-toggle iq-waves-effect d-flex align-items-center">
                   <img :src="userProfile" class="img-fluid rounded mr-3" alt="user">
                   <div class="caption">
-                    <h6 class="mb-0 line-height">Nik jone</h6>
+                    <h6 class="mb-0 line-height">Andres Orduz</h6>
                     <span class="font-size-12">{{ $t('nav.user.available') }}</span>
                   </div>
                 </a>
@@ -90,7 +81,7 @@
                   <div class="iq-card shadow-none m-0">
                     <div class="iq-card-body p-0 ">
                       <div class="bg-primary p-3">
-                        <h5 class="mb-0 text-white line-height">Hello Nik jone</h5>
+                        <h5 class="mb-0 text-white line-height">Andres Orduz</h5>
                         <span class="text-white font-size-12">{{ $t('nav.user.available') }}</span>
                       </div>
                       <a href="#" class="iq-sub-card iq-bg-primary-hover">

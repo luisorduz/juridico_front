@@ -1,7 +1,7 @@
 <template>
     <b-container fluid>
         <span v-if="proc_id != null" v-show="true">{{process[0].prore_id}}</span>
-        {{process[0]}}
+        {{process[0].prore_id}}
         <form-wizard @onComplete="onSubmit">
             <tab-content title="Información General" :selected="true">
                 <b-container fluid>
@@ -247,6 +247,16 @@
                                                         </b-form-group>
                                                         <b-form-group class="col-md-6" label="Asignar Abogada/o:" label-for="prore_pro_identificacion">
                                                             <b-form-select plain v-model="proc.prore_pro_identificacion" :options="abogadoOptions" @search="fetchOptionsAbogados" id="selectuserrole">
+                                                                <template v-slot:first>
+                                                                <b-form-select-option :value="null">Seleccione</b-form-select-option>
+                                                                </template>
+                                                            </b-form-select>
+                                                        </b-form-group>
+                                                        <b-form-group class="col-md-6" label="Número de Radicado" label-for="exampleInputNumber1">
+                                                            <b-form-input id="exampleInputNumber1" v-model="proc.prore_num_radicado" type="number" value="ej: 3154545"></b-form-input>
+                                                        </b-form-group>
+                                                        <b-form-group class="col-md-6" label="Etapa Procesal:" label-for="selectetapaprocess">
+                                                            <b-form-select plain v-model="proc.prore_typro_id" :options="etapaOptions" @search="fetchOptionsEtapas" id="selectuserrole">
                                                                 <template v-slot:first>
                                                                 <b-form-select-option :value="null">Seleccione</b-form-select-option>
                                                                 </template>
@@ -573,9 +583,6 @@
                                                             </div>
                                                         </ValidationProvider>
                                                     </b-form-group>
-                                                    <b-form-group class="col-md-6" label="Número de Radicado" label-for="exampleInputNumber1">
-                                                        <b-form-input id="exampleInputNumber1" type="number" value="ej: 3154545"></b-form-input>
-                                                    </b-form-group>
                                                     <b-form-group class="col-md-6" label="Objeto del Litigio:" label-for="usr_name_first">
                                                         <ValidationProvider name="Segundo Nombre" rules="required" v-slot="{ errors }">
                                                             <b-form-input v-model="proc.usr_name_last" type="text" placeholder="Objeto"></b-form-input>
@@ -847,6 +854,7 @@ export default {
     xray.index()
     this.fetchOptionsClinicas()
     this.fetchOptionsAbogados()
+    this.fetchOptionsEtapas()
     this.getProcess()
   },
   data () {
@@ -856,6 +864,7 @@ export default {
       procTemp: {},
       editing: false,
       clinicaOptions: [],
+      etapaOptions: [],
       abogadoOptions: [],
       proc_id: this.$route.params.id,
       roles: [
@@ -982,6 +991,13 @@ export default {
         this.abogadoOptions = response.data.professionals
       })
       console.log('this.abogadoOptions: ' + this.abogadoOptions)
+    },
+    fetchOptionsEtapas () {
+      axios.get('/process/etapa/fetch').then(response => {
+        console.log('response.data.etapas: ' + response.data.etaás)
+        this.etapaOptions = response.data.etapas
+      })
+      console.log('this.etapaOptions: ' + this.etapaOptions)
     }
   }
 }
