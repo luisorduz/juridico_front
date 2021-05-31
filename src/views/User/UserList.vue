@@ -51,16 +51,15 @@
                 class="form-control"
               />
             </template>
-            <template #cell(show_details)="row">
+            <template #cell(show_details)="row" >
               <b-button size="sm" @click="row.toggleDetails" class="mr-2">
+              <!--<b-button size="sm" @click="consultarProcesosJuridicos(data.item.pro_id)" class="mr-2">-->
                 {{ row.detailsShowing ? 'Ocultar' : 'Ver'}} Procesos Juridicos
               </b-button>
             </template>
 
             <template #row-details="row">
               <b-card>
-                <br>
-                <br>
                 <b>Procesos Juridicos Asignados:</b>
                 <br>
                 <br>
@@ -99,7 +98,7 @@ export default {
       user: {},
       columns: [
         { label: 'Nombre', key: 'pro_name_first', class: 'text-left' },
-        { label: 'Apellido', key: 'pro_name_las', class: 'text-left' },
+        { label: 'Apellido', key: 'pro_lastname_first', class: 'text-left' },
         {
           label: 'Identificación',
           key: 'pro_identificacion',
@@ -107,26 +106,6 @@ export default {
         },
         { label: 'Correo electronico', key: 'pro_email', class: 'text-left' },
         { label: 'Ver Procesos', key: 'show_details', class: 'text-left' }
-      ],
-      rows: [
-        {
-          id: 1,
-          usr_username: 'Tiger Nixon',
-          usr_identification: 'System Architect',
-          usr_email: 'wa@wa.com'
-        },
-        {
-          id: 2,
-          usr_username: 'Garrett Winters',
-          usr_identification: 'Accountant',
-          usr_email: 'wa@wa.com'
-        },
-        {
-          id: 3,
-          usr_username: 'Ashton Cox',
-          usr_identification: 'Junior Technical Author',
-          usr_email: 'wa@wa.com'
-        }
       ]
     }
   },
@@ -175,9 +154,12 @@ export default {
     },
     getUsers () {
       axios.get('/professionals').then(response => {
-        console.log('this.abogados: ' + this.abogados)
         this.abogados = response.data.professionals
+        console.log('this.abogados: ' + this.abogados)
       })
+    },
+    consultarProcesosJuridicos (usrId) {
+      console.log('dada')
     }
   },
   firestore () {

@@ -17,7 +17,7 @@
                       <ValidationProvider name="Primer Nombre" rules="required" v-slot="{ errors }">
                         <b-form-input v-model="user.usr_name_first" type="text" placeholder="Primer Nombre" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
                         <div class="invalid-feedback">
-                          <span>{{ errors[0] }}</span>
+                          <span>Nombre invalido</span>
                         </div>
                       </ValidationProvider>
                     </b-form-group>
@@ -25,23 +25,23 @@
                       <ValidationProvider name="Segundo Nombre" rules="required" v-slot="{ errors }">
                         <b-form-input v-model="user.usr_name_last" type="text" placeholder="Segundo Nombre" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
                         <div class="invalid-feedback">
-                          <span>{{ errors[0] }}</span>
+                          <span>Segundo Nombre invalido</span>
                         </div>
                       </ValidationProvider>
                     </b-form-group>
-                    <b-form-group class="col-md-6" label="Primer Apelldio:" label-for="usr_lastname_first">
-                      <ValidationProvider name="Primer Apelldio" rules="required" v-slot="{ errors }">
-                        <b-form-input v-model="user.usr_lastname_first" type="text" placeholder="Primer Apelldio" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
+                    <b-form-group class="col-md-6" label="Primer Apellido:" label-for="usr_lastname_first">
+                      <ValidationProvider name="Primer Apellido" rules="required" v-slot="{ errors }">
+                        <b-form-input v-model="user.usr_lastname_first" type="text" placeholder="Primer Apellido" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
                         <div class="invalid-feedback">
-                          <span>{{ errors[0] }}</span>
+                          <span>Primer Apellido invalido</span>
                         </div>
                       </ValidationProvider>
                     </b-form-group>
-                    <b-form-group class="col-md-6" label="Segundo Apelldio:" label-for="usr_lastname_first">
-                      <ValidationProvider name="Segundo Apelldio" rules="required" v-slot="{ errors }">
-                        <b-form-input v-model="user.usr_lastname_last" type="text" placeholder="Segundo Apelldio" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
+                    <b-form-group class="col-md-6" label="Segundo Apellido:" label-for="usr_lastname_first">
+                      <ValidationProvider name="Segundo Apellido" rules="required" v-slot="{ errors }">
+                        <b-form-input v-model="user.usr_lastname_last" type="text" placeholder="Segundo Apellido" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
                         <div class="invalid-feedback">
-                          <span>{{ errors[0] }}</span>
+                          <span>Segundo Apellido invalido</span>
                         </div>
                       </ValidationProvider>
                     </b-form-group>
@@ -49,13 +49,18 @@
                   <hr>
                   <b-row>
                   <b-form-group class="col-md-6" label="Fecha de Nacimiento" label-for="usr_birthday">
-                    <b-form-input id="exampleInputdate" v-model="user.usr_birthday" type="date" value="2019-12-18"></b-form-input>
+                    <ValidationProvider name="Fecha de nacimiento" rules="required" v-slot="{ errors }">
+                      <b-form-input id="exampleInputdate" v-model="user.usr_birthday" type="date" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
+                      <div class="invalid-feedback">
+                        <span>Fecha de nacimiento invalida</span>
+                      </div>
+                    </ValidationProvider>
                   </b-form-group>
                   <b-form-group class="col-md-6" label="Nombre de Usuario:" label-for="uname">
                     <ValidationProvider name="Nombre de Usuario" rules="required" v-slot="{ errors }">
                       <b-form-input v-model="user.usr_username" type="text" placeholder="Nombre de Usuario" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
                       <div class="invalid-feedback">
-                        <span>{{ errors[0] }}</span>
+                        <span>Nombre de Usuario invalido</span>
                       </div>
                     </ValidationProvider>
                   </b-form-group>
@@ -63,21 +68,26 @@
                     <ValidationProvider name="Correo Electronico" rules="required|email" v-slot="{ errors }">
                       <b-form-input v-model="user.usr_email" type="text" placeholder="Correo Electronico" :class="(errors.length > 0 ? ' is-invalid' : '')"></b-form-input>
                       <div class="invalid-feedback">
-                        <span>{{ errors[0] }}</span>
+                        <span>Correo electrónico invalido</span>
                       </div>
                     </ValidationProvider>
                   </b-form-group>
-                  <b-form-group class="col-md-6" label="Rol de Usuario:" label-for="selectuserrole">
-                    <b-form-select plain v-model="user.usr_role_id" :options="roles" id="selectuserrole">
-                      <template v-slot:first>
-                        <b-form-select-option :value="null">Seleccione un rol</b-form-select-option>
-                      </template>
-                    </b-form-select>
+                  <b-form-group class="col-md-6" label="Perfil de Usuario:" label-for="selectuserrole">
+                    <ValidationProvider name="Perfil de Usuario" rules="required" v-slot="{ errors }">
+                      <b-form-select plain v-model="user.usr_role_id" :options="roles" id="selectuserrole" :class="(errors.length > 0 ? ' is-invalid' : '')">
+                        <template v-slot:first>
+                          <b-form-select-option :value="null" disabled>Seleccione un perfil</b-form-select-option>
+                        </template>
+                      </b-form-select>
+                      <div class="invalid-feedback">
+                        <span>Debe de seleccionar una opción</span>
+                      </div>
+                    </ValidationProvider>
                   </b-form-group>
                   <b-form-group class="col-md-6" label="Tipo de identificación:" label-for="selectypeid">
                     <b-form-select plain v-model="user.usr_identification_type" :options="ids" id="selectypeid">
                       <template v-slot:first>
-                        <b-form-select-option :value="null">Seleccione un tipo de id</b-form-select-option>
+                        <b-form-select-option :value="null" disabled>Seleccione un tipo de id</b-form-select-option>
                       </template>
                     </b-form-select>
                   </b-form-group>
@@ -140,13 +150,6 @@ export default {
         { text: 'CC.', value: 1 },
         { text: 'TI.', value: 2 },
         { text: 'RC.', value: 3 }
-      ],
-      countries: [
-        { value: 'Canada', text: 'Canada' },
-        { value: 'Niada', text: 'Niada' },
-        { value: 'USA', text: 'USA' },
-        { value: 'India', text: 'India' },
-        { value: 'Africa', text: 'Africa' }
       ],
       users: []
     }

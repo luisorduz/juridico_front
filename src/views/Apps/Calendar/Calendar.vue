@@ -9,35 +9,34 @@
         </iq-card>
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title ">Classification</h4>
+            <h4 class="card-title ">Clasificación</h4>
           </template>
           <template v-slot:headerAction>
-            <a href="#"><i class="fa fa-plus  mr-0" aria-hidden="true" /></a>
+            <a><i class="fa fa-plus  mr-0" aria-hidden="true" /></a>
           </template>
           <template v-slot:body>
             <ul class="m-0 p-0 job-classification">
-              <li class=""><i class="ri-check-line bg-danger" />Meeting</li>
-              <li class=""><i class="ri-check-line bg-success" />Business travel</li>
-              <li class=""><i class="ri-check-line bg-warning" />Personal Work</li>
-              <li class=""><i class="ri-check-line bg-info" />Team Project</li>
+              <li class=""><i class="ri-check-line bg-danger" />Reuniones</li>
+              <li class=""><i class="ri-check-line bg-success" />Audiencias</li>
+              <li class=""><i class="ri-check-line bg-warning" />Notificación de sentencias</li>
             </ul>
           </template>
         </iq-card>
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Today's Schedule</h4>
+            <h4 class="card-title">Programa de hoy</h4>
           </template>
           <template v-slot:body>
             <ul class="m-0 p-0 today-schedule">
               <li class="d-flex">
                 <div class="schedule-icon"><i class="ri-checkbox-blank-circle-fill text-primary" /></div>
-                <div class="schedule-text"> <span>Web Design</span>
+                <div class="schedule-text"> <span>Audiencia en el juzgado administrativo de Pereira</span>
                   <span>09:00 to 12:00</span></div>
               </li>
               <li class="d-flex">
                 <div class="schedule-icon"><i class="ri-checkbox-blank-circle-fill text-success" /></div>
-                <div class="schedule-text"> <span>Participate in Design</span>
-                  <span>09:00 to 12:00</span></div>
+                <div class="schedule-text"> <span>Audiencia en el juzgado administrativo de Armenia</span>
+                  <span>14:00 to 16:00</span></div>
               </li>
             </ul>
           </template>
@@ -46,13 +45,17 @@
       <b-col md="9">
         <iq-card>
           <template v-slot:headerTitle>
-            <h4 class="card-title">Book Appointment</h4>
+            <h4 class="card-title">Reservar una cita</h4>
           </template>
           <template v-slot:headerAction>
-            <a href="#" class="btn btn-primary"><i class="ri-add-line mr-2"></i>Book Appointment</a>
+            <a href="#" class="btn btn-primary"><i class="ri-add-line mr-2"></i>Reservar una cita</a>
           </template>
           <template v-slot:body>
-            <FullCalendar :calendarEvents="events" />
+            <FullCalendar lang="es" :calendarEvents="events">
+              <template v-slot:eventContent='events'>
+                <b>{{ events.title }}</b>
+                <i>{{ events.start_date }}</i>
+              </template>  </FullCalendar>
           </template>
         </iq-card>
       </b-col>
@@ -198,11 +201,15 @@ export default {
   },
   methods: {
     getAgendas () {
-      axios.get('/audiencias').then(response => {
-        console.log('response.data.audiencias: ' + response.data.audiencias)
-        this.events = response.data.audiencias
+      axios.get('/agenda').then(response => {
+        this.events = Object.keys(response.data.audiencias).map((key) => {
+          return response.data.audiencias[key]
+        })
+        console.log('fafaf')
+        console.log(this.events)
       })
-      console.log('this.events: ' + this.events)
+      console.log('pille ps')
+      console.log(this.events2)
     }
   }
 }

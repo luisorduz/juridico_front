@@ -1,9 +1,9 @@
 <template>
   <div class="iq-sidebar">
     <div class="iq-sidebar-logo d-flex justify-content-between">
-      <router-link :to="homeURL">
+      <router-link :to="homeURL" style="display: flex;align-items: center;">
         <img :src="logo" class="img-fluid" alt="logo">
-        <span>Gocho</span>
+        <h4 class="text-white">Juridico App</h4>
       </router-link>
       <div class="iq-menu-bt-sidebar" v-if="toggleButton">
         <div class="iq-menu-bt align-self-center">
@@ -29,9 +29,8 @@ import List from '../menus/ListStyle1'
 export default {
   name: 'SideBarStyle1',
   props: {
-    homeURL: { type: Object, default: () => ({ name: 'layout1.dashboard' }) },
+    homeURL: { type: Object, default: () => ({ name: 'dashboard.home-1' }) },
     items: { type: Array },
-    logo: { type: String, default: require('../../../assets/images/logo.png') },
     horizontal: { type: Boolean },
     toggleButton: { type: Boolean, default: true }
   },
@@ -45,6 +44,7 @@ export default {
   },
   data () {
     return {
+      logo: require('@/assets/images/solo-logo.png')
     }
   }
 }

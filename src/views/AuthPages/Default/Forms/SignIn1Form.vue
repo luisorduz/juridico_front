@@ -16,7 +16,7 @@
         <div class="form-group">
           <label for="passwordInput">Contraseña</label>
           <router-link to="/auth/password-reset1" class="float-right">
-            Olvidó la contraseña?
+            ¿Olvidó la contraseña?
           </router-link>
           <input type="password"  :class="'form-control mb-0' +(errors.length > 0 ? ' is-invalid' : '')"
                  id="passwordInput"
@@ -33,7 +33,7 @@
         </div>
         <button type="submit" class="btn btn-primary float-right">Iniciar Sesión</button>
       </div>
-      <div class="sign-info">
+      <!--<div class="sign-info">
           <span class="dark-color d-inline-block line-height-2">
             No tienes una cuenta?
             <router-link to="/dark/auth/sign-up1" class="iq-waves-effect pr-4" v-if="$route.meta.dark">
@@ -44,21 +44,21 @@
             </router-link>
           </span>
         <social-login-form></social-login-form>
-      </div>
+      </div>-->
     </form>
   </ValidationObserver>
 </template>
 
 <script>
 import Vue from 'vue'
-import SocialLoginForm from './SocialLoginForm'
+// import SocialLoginForm from './SocialLoginForm'
 import { mapGetters } from 'vuex'
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:8000/api'
+import auth from '@/logic/auth'
 
 export default {
   name: 'SignIn1Form',
-  components: { SocialLoginForm },
+  // components: { SocialLoginForm },
   props: ['formType', 'email', 'password'],
   data: () => ({
     user: {
@@ -69,6 +69,8 @@ export default {
   mounted () {
     this.user.usr_email = this.$props.email
     this.user.usr_password = this.$props.password
+    this.user.nombre_completo = ''
+    this.user.id = ''
   },
   computed: {
     ...mapGetters({
@@ -77,16 +79,25 @@ export default {
   },
   methods: {
     onSubmit () {
+      // this.handleLogin()
       this.login()
     },
+    handleLogin () {
+      axios.get('/sanctum/csrf-cookie').then(response => {
+        console.log(response)
+        this.login()
+      })
+    },
     login () {
-      console.log('weee', this.user.usr_email)
       axios.post('/login', this.user).then(res => {
         console.log(res.data)
         if (res.data.status_code === 200) {
+          // this.user.nombre_completo = res.data.nombre_completo
+          // this.user.id = res.data.user_id
           const token = res.data.token
           localStorage.setItem('access_token', token)
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+          auth.setUserLogged(res.data.user)
           this.$router.push({ name: 'dashboard.home-1' })
         } else {
           Vue.swal('Credenciales no validas')

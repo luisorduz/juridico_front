@@ -16,3 +16,8 @@ import Css
 @import "variable.css";
 @import "agora.css";
 @import url('developer.css');
+
+.texto-tipo-boton{
+  text-decoration: underline;
+  cursor: pointer;
+}

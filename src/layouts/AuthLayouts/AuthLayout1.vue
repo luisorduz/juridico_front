@@ -10,10 +10,10 @@
               <Slick :option="slickOptions">
                 <div class="item">
                   <img :src="require('../../assets/images/login/1.png')" class="img-fluid mb-4" alt="logo">
-                  <h4 class="mb-1 text-white">Manage your orders</h4>
-                  <p>It is a long established fact that a reader will be distracted by the readable content.</p>
+                  <h4 class="mb-1 text-white">Puedes crear tus litigios</h4>
+                  <p>Crea tus litigios de manera fácil y digitaliza la información. Siempre disponible.</p>
                 </div>
-                <div class="item">
+                <!--<div class="item">
                   <img :src="require('../../assets/images/login/2.png')" class="img-fluid mb-4" alt="logo">
                   <h4 class="mb-1 text-white">Manage your orders</h4>
                   <p>It is a long established fact that a reader will be distracted by the readable content.</p>
@@ -22,7 +22,7 @@
                   <img :src="require('../../assets/images/login/3.png')" class="img-fluid mb-4" alt="logo">
                   <h4 class="mb-1 text-white">Manage your orders</h4>
                   <p>It is a long established fact that a reader will be distracted by the readable content.</p>
-                </div>
+                </div>-->
               </Slick>
             </div>
           </div>
@@ -38,7 +38,7 @@
 </template>
 <script>
 import Loader from '../../components/xray/loader/Loader'
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/logo-nueva.png'
 import { xray } from '../../config/pluginInit'
 import bgImage from '../../assets/images/login/2.png'
 export default {
@@ -54,7 +54,7 @@ export default {
       slickOptions: {
         slidesToShow: 1,
         arrows: false,
-        dots: true
+        dots: false
       },
       logo: logo,
       bgImageURL: bgImage

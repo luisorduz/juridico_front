@@ -88,6 +88,8 @@ import DatepickerDemo from '../views/Plugins/DatepickerDemo'
 import SelectDemo from '../views/Plugins/SelectDemo'
 import DragDropDemo from '../views/Plugins/DragDropDemo'
 import AppTreeView from '../views/Plugins/AppTreeView'
+import axios from 'axios'
+
 Vue.use(VueRouter)
 
 const childRoutes = (prop, mode) => [
@@ -390,7 +392,7 @@ const authChildRoutes = (prop, mode = false) => [
   {
     path: 'sign-in1',
     name: prop + '.sign-in1',
-    meta: { dark: mode, auth: true },
+    meta: { dark: mode, auth: false },
     component: SignIn1
   },
   {
@@ -679,6 +681,20 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.VUE_APP_BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const rutaAuth = to.matched.some((record) => record.meta.auth)
+  const token = axios.defaults.headers.common['Authorization']
+  next()
+  if (rutaAuth && token == null) {
+    next({ name: 'auth1.sign-in1' })
+    // this.$router.push({ name: 'auth1.sign-in1' })
+  } else {
+    next()
+  }
+  // if (to.name !== 'Login' && !isAuthenticated) next({ name: 'Login' })
+  // else next()
 })
 
 export default router
