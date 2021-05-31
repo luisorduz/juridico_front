@@ -163,6 +163,7 @@ export const xray = {
       /* for (let i = 0; i < wrapperMenu.length; i++) {
       } */
     }
+    console.log('dadadadd')
   },
 
   sidebarMiniSetEvent (element, target) {

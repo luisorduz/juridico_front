@@ -14,7 +14,7 @@
     "is_heading": false,
     "is_active": false,
     "link": {
-      "name": "dashboard.home-4"
+      "name": "dashboard.home-1"
     },
     "class_name": "",
     "is_icon_class": true,
@@ -119,38 +119,5 @@
     "class_name": "",
     "is_icon_class": true,
     "icon": "ri-calendar-event-fill"
-  },
-
-  {
-    "title": "Components",
-    "name": "sidebar.components",
-    "is_heading": true,
-    "is_active": false,
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": ""
-  },
-  {
-    "title": "Authentication",
-    "name": "sidebar.authentication",
-    "is_heading": false,
-    "is_active": false,
-    "link": "",
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": "ri-server-fill",
-    "children": [
-      {
-        "title": "Login",
-        "name": "sidebar.login",
-        "is_active": false,
-        "link": {
-          "name": "auth1.sign-in1"
-        },
-        "class_name": "",
-        "is_icon_class": true,
-        "icon": "ri-login-box-line"
-      }
-    ]
   }
 ]
