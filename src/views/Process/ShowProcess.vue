@@ -551,7 +551,8 @@ export default {
         imp_profile_id: '',
         imp_process_request_id: this.$route.params.prore_id
       },
-      profilesOptions: {}
+      profilesOptions: {},
+      errores: {}
     }
   },
   methods: {
@@ -568,10 +569,11 @@ export default {
         if (this.typeNotificationsOptions[0] !== undefined) {
           this.intentos = 0
           this.agenda.agen_type_not_id = this.typeNotificationsOptions[0].value
+          this.errores = {}
         }
       })
         .catch((err) => {
-          console.log('Ocurrió un error ' + err)
+          this.errores = err
           if (this.intentos !== 2) {
             this.getTypeNotifications()
           }
@@ -582,9 +584,10 @@ export default {
       axios.get('/professionals/fetch').then(response => {
         this.intentos = 0
         this.abogadoOptions = response.data.professionals
+        this.errores = {}
       })
         .catch((err) => {
-          console.log('Ocurrió un error ' + err)
+          this.errores = err
           if (this.intentos !== 2) {
             this.fetchOptionsAbogados()
           }
@@ -594,9 +597,10 @@ export default {
     getEstadosProceso () {
       axios.get('/statusProcess/fetch').then(response => {
         this.statusProcessOptions = response.data.status_process
+        this.errores = {}
       })
         .catch((err) => {
-          console.log('Ocurrió un error ' + err)
+          this.errores = err
           this.getEstadosProceso()
         })
     },
@@ -684,9 +688,10 @@ export default {
         this.proceedingKey++
         this.intentos = 0
         this.proceedings = response.data.proceedings
+        this.errores = {}
       })
         .catch((err) => {
-          console.log('Ocurrió un error ' + err)
+          this.errores = err
           if (this.intentos !== 2) {
             this.getProceedings()
           }
@@ -771,7 +776,6 @@ export default {
       this.proceeding.proce_fecha_siguiente_audiencia = this.proceedings[llave].proce_fecha_siguiente_audiencia
       this.proceeding.proce_hora_siguiente_audiencia = this.proceedings[llave].proce_hora_siguiente_audiencia
       this.linksProceeding = this.proceedings[llave].links
-      console.log(this.linksProceeding)
       this.$bvModal.show('modal-nueva-actuacion')
     },
     deleteProceeding (proceId) {
@@ -863,7 +867,6 @@ export default {
               var linkIndex = this.links.indexOf(linkFor)
               var linkEdit = { ...this.links[linkIndex], ...{ editable: false, link_id: res.data.link_id } }
               this.links.splice(linkIndex, 1, linkEdit)
-              console.log(linkEdit)
             } else {
               Vue.swal(res.data.message)
             }
@@ -927,9 +930,10 @@ export default {
         this.implicatedKey++
         this.intentos = 0
         this.implicateds = response.data.implicateds
+        this.errores = {}
       })
         .catch((err) => {
-          console.log('Ocurrió un error ' + err)
+          this.errores = err
           if (this.intentos !== 2) {
             this.getImplicateds()
           }
@@ -1032,9 +1036,10 @@ export default {
       // solo trae los perfiles que no tengan que ver con la plataforma
       axios.get('/profiles/fetchExterns').then(response => {
         this.profilesOptions = response.data.profiles
+        this.errores = {}
       })
         .catch((err) => {
-          console.log('Ocurrió un error ' + err)
+          this.errores = err
           if (this.intentos !== 2) {
             this.fetchProfiles()
           }

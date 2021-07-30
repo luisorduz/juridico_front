@@ -223,6 +223,21 @@
                                       </div>
                                     </div>
                                   </b-form-group>
+                                  <b-form-group class="col-md-6" label="Departamento*" label-for="department_id">
+                                    <div v-if="proc_id != null && formData.department_id != null">
+                                      <span class='text'>{{formData.department_name}}</span>
+                                    </div>
+                                    <div v-if="proc_id == null || formData.department_id == null">
+                                      <b-form-select plain v-model="formData.department_id" :options="departmentsOptions" @change="fetchCity" id="select_department" :class="hasError('department_id') ? 'is-invalid' : ''">
+                                        <template v-slot:first>
+                                          <b-form-select-option :value="null" disabled>Seleccione un departamento</b-form-select-option>
+                                        </template>
+                                      </b-form-select>
+                                      <div v-if="hasError('department_id')" class="invalid-feedback">
+                                        <div class="error" v-if="!$v.formData.department_id.required">Por favor elige un departamento.</div>
+                                      </div>
+                                    </div>
+                                  </b-form-group>
                                   <b-form-group class="col-md-6" label="Ciudad*" label-for="prore_city_id">
                                     <div v-if="proc_id != null && formData.prore_city_id != null">
                                       <span class='text'>{{formData.city_name}}</span>
@@ -1327,6 +1342,7 @@ export default {
         { text: 'NIT', value: 4 }
       ],
       aseguradorasOptions: {},
+      departmentsOptions: {},
       citiesOptions: {},
       profilesOptions: {},
       statusProcessOptions: {},
@@ -1346,7 +1362,9 @@ export default {
           value: 1
         }
       ],
-      users: []
+      users: [],
+      errores: {},
+      intentos: 0
     }
   },
   computed: {
@@ -1373,7 +1391,7 @@ export default {
             this.fetchEspecialidades()
             this.fetchTypeProcess()
             setTimeout(() => {
-              this.fetchCity()
+              this.fetchDepartments()
               this.fetchCourts()
               this.fetchProfiles()
               setTimeout(() => {
@@ -1405,15 +1423,38 @@ export default {
         this.typeProcessOptions = response.data.type_process
       })
     },
-    fetchCity () {
-      axios.get('/cities/fetch').then(response => {
-        this.citiesOptions = response.data.cities
+    fetchDepartments () {
+      axios.get('/departments/fetch').then(response => {
+        this.departmentsOptions = response.data.departments
       })
+    },
+    fetchCity () {
+      axios.get('/cities/fetch/' + this.formData.department_id).then(response => {
+        this.citiesOptions = response.data.cities
+        this.errores = {}
+        this.intentos = 0
+      })
+        .catch((err) => {
+          this.errores = err
+          if (this.intentos !== 2) {
+            this.fetchCity()
+          }
+          this.intentos++
+        })
     },
     fetchCourts () {
       axios.get('/courts/fetch').then(response => {
         this.courtsOptions = response.data.courts
+        this.errores = {}
+        this.intentos = 0
       })
+        .catch((err) => {
+          this.errores = err
+          if (this.intentos !== 2) {
+            this.fetchCourts()
+          }
+          this.intentos++
+        })
     },
     fetchRisks () {
       axios.get('/risks/fetch').then(response => {
