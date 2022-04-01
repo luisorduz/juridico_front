@@ -363,7 +363,7 @@ export default {
     },
     formatoEnMillones (value) {
       let val = value.toString()
-      val = val.slice(0, -4)
+      val = val.slice(0, -8)
       return val
     }
   }

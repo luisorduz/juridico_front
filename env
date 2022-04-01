@@ -1,0 +1,4 @@
+VUE_APP_BASE_URL="/juridico_front/dist"
+VUE_APP_I18N_LOCALE=sp
+VUE_APP_I18N_FALLBACK_LOCALE=sp
+VUE_APP_NODE_ENV=development
