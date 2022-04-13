@@ -264,7 +264,7 @@ export default {
       }).then((result) => {
         if (result.isConfirmed) {
           axios.get('/users/delete/' + usuarioId).then(res => {
-            if (res.data.status_code === 200) {
+            if (res.status === 200) {
               Vue.swal(res.data.message)
               this.getUsers()
             } else {
