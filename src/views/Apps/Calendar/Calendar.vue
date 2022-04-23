@@ -96,12 +96,12 @@
         </b-form-group>
         <b-row>
           <b-col md="12">
-            <b-form-group  class="sm-6" label="Radicado del Proceso" label-for="agen_prore_id">
-              <b-form-select v-model="formData.agen_prore_id" :options="processOpenedOptions" id="selectuserrole" >
-                <template v-slot:first>
-                  <b-form-select-option :value="null" disabled>Seleccione un proceso</b-form-select-option>
-                </template>
-              </b-form-select>
+            <b-form-group  class="sm-6" label="Radicado del Proceso - ID Litigando" label-for="agen_prore_id">
+
+              <v-select v-model="formData.agen_prore_id" :options="processOpenedOptions" :reduce="label => label.value"  label="text" id="selectuserrole" >
+                          <span slot="no-options">No se ha encontrado</span>
+                        </v-select>
+
             </b-form-group>
           </b-col>
         </b-row>

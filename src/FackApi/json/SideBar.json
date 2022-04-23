@@ -121,40 +121,6 @@
     ]
   },
   {
-    "title": "otrosProcesos",
-    "name": "sidebar.otrosProcesos",
-    "is_heading": false,
-    "is_active": false,
-    "link": "",
-    "class_name": "",
-    "is_icon_class": true,
-    "icon": "fas fa-bars",
-    "children": [
-      {
-        "title": "otrosProcesosList",
-        "name": "sidebar.ListaOtrosProcesos",
-        "is_active": false,
-        "link": {
-          "name" : "process-otros.list"
-        },
-        "class_name": "",
-        "is_icon_class": true,
-        "icon": "ri-book-mark-line"
-      },
-      {
-        "title": "otrosProcesosArchivados",
-        "name": "sidebar.otrosProcesosArchivados",
-        "is_active": false,
-        "link": {
-          "name" : "process-otros.archivados"
-        },
-        "class_name": "",
-        "is_icon_class": true,
-        "icon": "fas fa-archive"
-      }
-    ]
-  },
-  {
     "title": "policies",
     "name": "sidebar.polizas",
     "is_heading": false,

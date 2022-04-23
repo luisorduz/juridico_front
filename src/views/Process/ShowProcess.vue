@@ -249,7 +249,7 @@
                     </template>
                     <template v-slot:headerAction>
                       <b-button variant="secondary" class="mr-2" v-if="editando" @click="cancelarEdicionProceso">Cancelar</b-button>
-                      <b-button variant="primary" :disabled="process.prore_estado == 1" :class="estadoBotonActualizarProceso" @click="editarProceso">{{ textoEditarProceso }}</b-button>
+                      <b-button variant="primary" :class="estadoBotonActualizarProceso" @click="editarProceso">{{ textoEditarProceso }}</b-button>
                       <b-button variant="danger" v-if="process.prore_estado != 1" :class="estadoBotonTerminarProceso" class="ml-3" v-b-modal.modal-terminar-proceso @click="verModalTerminarProceso(prore_id)">Terminar Proceso</b-button>
                     </template>
                     <template v-slot:body>
@@ -739,7 +739,7 @@
                       <h4 class="card-title">Datos de la poliza</h4>
                     </template>
                     <template v-slot:headerAction>
-                      <b-button variant="primary" :disabled="process.prore_estado == 1" @click="asociarPoliza">Asociar Poliza</b-button>
+                      <b-button variant="primary" @click="asociarPoliza">Asociar Poliza</b-button>
                     </template>
                     <template v-slot:body>
                       <b-row class="col-md-12 pt-1">
@@ -786,7 +786,7 @@
                         <ul class="iq-timeline">
                           <li class="col-md-12" v-for="(poliza, index) in polizas" :key="index">
                             <div class="timeline-dots border-primary border-primary"></div>
-                            <h6 class="float-left mb-1 font-weight-bolder text-primary" @click="irPoliza(poliza.pol_id)" style="text-decoration:underline;cursor:pointer">{{ poliza.pol_numero }} - {{ poliza.aseguradora.ase_name }}<button class="btn btn-link pt-0 disabled" @click="editPolizaAsociada(index)"><i class="ri-edit-2-fill"></i>Editar</button> <button @click="deletePolizaAsociada(poliza.pol_id)" class="btn btn-link pt-0 px-0 text-danger disabled"><i class="ri-delete-bin-6-fill"></i>Eliminar</button></h6>
+                            <h6 class="float-left mb-1 font-weight-bolder text-primary" @click="irPoliza(poliza.pol_id)" style="text-decoration:underline;cursor:pointer">{{ poliza.pol_numero }} - {{ poliza.aseguradora.ase_name }}</h6><button class="btn btn-link pt-0 disabled" @click="editPolizaAsociada(index)"><i class="ri-edit-2-fill"></i>Editar</button> <a @click="deletePolizaAsociada(poliza.pol_id)" class="btn btn-link pt-0 px-0 text-danger"><i class="ri-delete-bin-6-fill"></i>Eliminar</a>
                             <b-row class="col-md-12 pt-1">
                               <b-card-text class="pr-3 my-0"><b>Tomador: </b>{{ poliza.clinica.cli_name }}</b-card-text>
                               <b-card-text class="pr-3 my-0"><b>Fecha inicio vigencia: </b><span v-if="poliza.pol_fecha_inicio != null">{{ poliza.pol_fecha_inicio }}</span><span class="text-danger" v-else>Sin asignar</span></b-card-text>
@@ -1655,6 +1655,30 @@ export default {
     agregarImplicated () {
       this.limpiarModalImplicated()
       this.$bvModal.show('modal-nuevo-implicated')
+    },
+    deletePolizaAsociada (polId) {
+      this.$swal.fire({
+        icon: 'warning',
+        title: '¿Eliminar póliza del proceso?',
+        text: 'Esta acción no se podrá revertir. Se desligará la póliza de este proceso',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Eliminar póliza',
+        confirmButtonColor: '#f7505a',
+        customClass: 'sweetalert-btns',
+        showCloseButton: true
+      }).then((result) => {
+        if (result.value) {
+          axios.post('/process/remove-police-process/' + this.prore_id + '/' + polId).then(response => {
+            Vue.swal(response.data.message)
+            this.obtenerPolizas()
+          })
+            .catch((err) => {
+              this.errores = err
+              Vue.swal('Ups, sucedió un error')
+            })
+        }
+      })
     },
     limpiarModalImplicated () {
       this.nuevoImplicated.imp_id = null

@@ -75,8 +75,8 @@
                         </div>
                       </ValidationProvider>
                     </b-form-group>
-                    <b-form-group v-if="years != null" class="col-md-6" label="Año de notificación*" label-for="prore_year_notify">
-                      <ValidationProvider name="Year de notificación" rules="required" v-slot="{ errors }">
+                    <b-form-group v-if="years != null" class="col-md-6" label="Año de notificación" label-for="prore_year_notify">
+                      <ValidationProvider name="Year de notificación" v-slot="{ errors }">
                         <v-select v-model="formData.prore_year_notify" :options="years" :reduce="label => label.code" label="label" id="prore_year_notify" :class="(errors.length > 0 ? ' is-invalid' : '')">
                           <span slot="no-options">No hay años.</span>
                         </v-select>
@@ -85,8 +85,8 @@
                         </div>
                       </ValidationProvider>
                     </b-form-group>
-                    <b-form-group v-if="years != null" class="col-md-6" label="Año del proceso*" label-for="prore_process_year">
-                      <ValidationProvider name="Year del proceso" rules="required" v-slot="{ errors }">
+                    <b-form-group v-if="years != null" class="col-md-6" label="Año del proceso" label-for="prore_process_year">
+                      <ValidationProvider name="Year del proceso"  v-slot="{ errors }">
                         <v-select v-model="formData.prore_process_year" :options="years" :reduce="label => label.code" label="label" id="prore_process_year" :class="(errors.length > 0 ? ' is-invalid' : '')">
                           <span slot="no-options">No hay años.</span>
                         </v-select>
