@@ -9,6 +9,9 @@ RUN apk add --no-cache git
 RUN npm install
 # copy files and folders to the current working directory (i.e. 'app' folder)
 COPY . .
+#Evitar problemas de falta de memoria
+ENV GENERATE_SOURCEMAP=false
+RUN NODE_OPTIONS="--max-old-space-size=8192"
 # build app for production with minification
 RUN npm run build
 
