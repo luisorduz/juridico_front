@@ -148,6 +148,7 @@ NOTE: This file contains the styling for responsive Template.
 	.iq-circle-progressbar .percent { font-size: 2.5rem !important; }
 	.iq-circle-progressbar svg { width: 200px !important; height: 200px !important; }
 	.iq-circle-progressbar { margin: 0 auto; width: 200px !important; height: 200px !important; }
+	.sign-in-from{position: static;}
 }
 @media(max-width:767px) {
 	.table { width: 100%; max-width: 100%; margin-bottom: 1rem; display: block; overflow-x: auto; }
@@ -207,5 +208,6 @@ NOTE: This file contains the styling for responsive Template.
 	.navbar-collapse{top: 110px;}
 	.content-page, body.sidebar-main .content-page{padding: 170px 0 0;}
 	.iq-top-navbar .iq-sub-dropdown{width: 240px;}
+	.sign-in-from{width: 350px; height: 550px}
 }
 @media(max-width:359px) { }

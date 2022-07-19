@@ -3,8 +3,8 @@
     <form class="mt-4" novalidate @submit.prevent="handleSubmit(onSubmit)">
       <ValidationProvider vid="email" name="E-mail" rules="required|email" v-slot="{ errors }">
         <div class="form-group ">
-          <label for="emailInput">Correo electrónico</label>
-          <input type="email" :class="'form-control mb-0' +(errors.length > 0 ? ' is-invalid' : '')"
+          <p style="color:white"><strong>Correo electrónico</strong></p>
+          <input type="email" :class="'form-control mb-0 input-sing' +(errors.length > 0 ? ' is-invalid' : '')"
                  id="emailInput" aria-describedby="emailHelp"
                  v-model="user.usr_email" placeholder="Correo" required>
           <div class="invalid-feedback">
@@ -14,8 +14,8 @@
       </ValidationProvider>
       <ValidationProvider vid="password" name="Password" rules="required" v-slot="{ errors }">
         <div class="form-group">
-          <label for="passwordInput">Contraseña</label>
-          <input type="password"  :class="'form-control mb-0' +(errors.length > 0 ? ' is-invalid' : '')"
+          <p style="color:white"><strong>Contraseña</strong></p>
+          <input type="password"  :class="'form-control mb-0 input-sing' +(errors.length > 0 ? ' is-invalid' : '')"
                  id="passwordInput"
                  v-model="user.usr_password" placeholder="Contraseña" required>
           <div class="invalid-feedback">
@@ -24,7 +24,7 @@
         </div>
       </ValidationProvider>
       <div class="d-flex justify-content-between ml-4">
-        <b-form-checkbox class="form-check-input col-6" type="checkbox" v-model="recordarme" id="flexCheckChecked">Recordarme</b-form-checkbox>
+        <b-form-checkbox class="form-check-input col-6" type="checkbox" v-model="recordarme" id="flexCheckChecked" ><p style="color:white"><strong>Recordarme</strong></p></b-form-checkbox>
         <router-link to="/auth/password-reset1" class="pt-1">
             ¿Olvidaste tu contraseña?
         </router-link>

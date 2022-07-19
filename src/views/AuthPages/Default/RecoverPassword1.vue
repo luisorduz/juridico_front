@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="mb-0">Restablecer Contraseña</h1>
-    <p>Ingrese su dirección de correo electrónico y le enviaremos un correo electrónico con instrucciones para restablecer su contraseña.</p>
+    <h1 class="mb-0" style="color:white">Restablecer Contraseña</h1>
+    <p style="color:white">Ingrese su dirección de correo electrónico y le enviaremos un correo electrónico con instrucciones para restablecer su contraseña.</p>
     <div class='notificacion' v-if="correoEnviado">
         <i class='float-right fas fa-times cerrar' v-on:click="correoEnviado=false"></i>
         <p>Se ha enviado un correo para restablecer su contraseña. Si no lo encuentra en el inbox principal, por favor verifique en la carpeta de spam.</p>
@@ -11,8 +11,8 @@
         <ValidationProvider type="email" vid="email" name="Correo electrónico" rules="required" v-slot="{ errors }">
           <div class="form-group">
             <div class="form-group">
-              <label for="name">Correo electrónico</label>
-              <input type="email" v-model="email" :class="'form-control mb-0' +(errors.length > 0 ? ' is-invalid' : '')"
+              <label for="name" style="color:white">Correo electrónico</label>
+              <input type="email" v-model="email" :class="'form-control mb-0 input-sing' +(errors.length > 0 ? ' is-invalid' : '')"
                     id="name" aria-describedby="emailHelp" placeholder="Correo electrónico registrado">
               <div class="invalid-feedback">
                 <span>{{ errors[0] }}</span>

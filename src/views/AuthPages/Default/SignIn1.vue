@@ -1,7 +1,9 @@
 <template>
   <div>
-    <h1 class="mb-0">Iniciar Sesión</h1>
-    <p>Ingresa tus credenciales.</p>
+    <h1 class="text-center" :style="'color: blueviolet; font-size:45px; font-family:Gilroy'"> <strong>¡Bienvenido!</strong></h1>
+    <hr>
+    <h2 class="mb-0 text-center text-white" :style="'font-family:Gilroy'"><strong>Inicio de Sesión</strong></h2>
+    <p class="text-center text-white" ><strong>Ingresa tus credenciales.</strong></p>
     <sign-in1-form></sign-in1-form>
   </div>
 </template>

@@ -202,7 +202,7 @@ a:hover { text-decoration: none; color: #02818f; }
 .sign-in-detail { padding: 100px; height: 100vh; border-radius: 40px; }
 .sign-in-logo { display: inline-block; width: 100%; }
 .sign-in-logo img { height: 100px; }
-.sign-in-from { padding: 20px 60px; border-radius: 37px; position: absolute; top: 10%; bottom: 10%; left: 0; right: 0; background: #fff; }
+.sign-in-from { padding: 20px 60px; border-radius: 37px; position: absolute; top: 10%; bottom: 10%; left: 0; right: 0; background: rgba(255, 255, 255, 0.6); margin-top: 100px; width: 475px; height: 550px }
 .sign-info { border-top: 1px solid #cdd1f3; margin-top: 30px; padding-top: 20px; }
 .iq-social-media { margin: 0; padding: 0; float: right; }
 .iq-social-media li { list-style: none; float: left; margin-right: 10px; }
@@ -1034,3 +1034,7 @@ Add User Page
 -----------------------------------------------------------------------*/
 .add-img-user .p-image { position: static; text-align: left; display: block; height: auto; width: auto; background: transparent; margin-top: 20px; }
 .img-extension a, .img-extension span { color: #777D74; padding: 0 3px; font-size: 13px; }
+/*------------------------------------------------------------------
+form sing in
+----------------------------------------------------------------------*/
+.input-sing { border-color: #059F98; color: #fff;}

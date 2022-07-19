@@ -62,20 +62,20 @@ import Css
 
 /* SIDEBAR */
 .iq-sidebar {
-  background-color: #089bab !important;
-  background: #089bab !important;
+  background-color: #555EAE !important;
+  background: #555EAE !important;
 }
 .iq-sidebar-menu .iq-menu li.active > a {
   color: #089bab !important;
 }
 
 .iq-sidebar-menu .iq-menu li.active .iq-submenu li.active > a {
-  background: #666666 !important;
+  background: #059F98 !important;
   color: #fff !important;
   border-radius: 0;
 }
 .iq-sidebar-menu .iq-menu li ul a:hover {
-  color: #089bab !important;
+  color: #059F98 !important;
 }
 
 .fecha-archivo-caso label{
@@ -98,4 +98,28 @@ import Css
   font-size: inherit;
   white-space: normal;
   cursor: pointer;
+}
+
+@font-face {
+  font-family: 'Quatro';
+  src: url('../fonts/Quatro-ExtraLightItalic.eot');
+  src: local('../fonts/Quatro ExtraLightItalic'), local('../fonts/Quatro-ExtraLightItalic'),
+      url('../fonts/Quatro-ExtraLightItalic.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Quatro-ExtraLightItalic.woff2') format('woff2'),
+      url('../fonts/Quatro-ExtraLightItalic.woff') format('woff'),
+      url('../fonts/Quatro-ExtraLightItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src: url('../fonts/Gilroy-ExtraBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.login-background {
+  background: linear-gradient(357deg, rgba(85,94,174,0.8) 0%, rgba(5,159,152,0.8) 100%); 
+  height: 1024px;
 }
