@@ -25,6 +25,7 @@
         variant="primary"
         @click="subirArchivoImportar"
         style="margin-top:15px"
+        :class="estadoBoton"
         >Importar Casos</b-button
         >
     </b-modal>
@@ -309,7 +310,8 @@ export default {
       filterOn: [],
       user_profile: null,
       files: [],
-      file: null
+      file: null,
+      estadoBoton: ''
     }
   },
   computed: {
@@ -441,14 +443,17 @@ export default {
       this.$bvModal.show('modal-importar-casos')
     },
     subirArchivoImportar () {
+      this.estadoBoton = 'disabled'
       const data = new FormData()
-
       data.append('import_file', this.file, this.file.name)
 
       axios.post('/casos/importar', data).then((res) => {
         if (res.status === 200) {
           console.log(res)
+          this.getCases()
         }
+        this.$bvModal.hide('modal-importar-casos')
+        this.estadoBoton = ''
         Vue.swal(res.data.message)
       })
     }
