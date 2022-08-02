@@ -13,12 +13,37 @@
       </b-modal>
     </div>
     <!-- FIN DE MODAL-->
+    <!-- MODAL DE IMPORTAR ARCHIVO -->
+    <b-modal id="modal-importar-casos" size="lg" title="Importar Casos" hide-footer>
+      <b-col xs="8">
+        <b-form-file
+            v-model="file"
+            placeholder="Añadir archivo"
+        ></b-form-file>
+      </b-col>
+      <b-button
+        variant="primary"
+        @click="subirArchivoImportar"
+        style="margin-top:15px"
+        :class="estadoBoton"
+        >Importar Casos</b-button
+        >
+    </b-modal>
+     <!-- FIN DE MODAL-->
     <b-row>
       <b-col lg="12">
         <iq-card>
           <template v-slot:headerTitle>
             <h4 class="card-title">Todos Los Casos</h4>
           </template>
+          <template v-slot:headerAction>
+               <b-button
+                        variant="primary"
+                        style="margin-left: 5px"
+                        @click="showImportarCasos"
+                        >Importar Casos</b-button
+                      >
+            </template>
           <template v-slot:body>
             <b-row>
               <b-col sm="3" md="3" class="my-1">
@@ -284,7 +309,9 @@ export default {
       filter: null,
       filterOn: [],
       user_profile: null,
-      files: []
+      files: [],
+      file: null,
+      estadoBoton: ''
     }
   },
   computed: {
@@ -411,6 +438,24 @@ export default {
     },
     rowClass (item) {
       if (item.caso_estado_id === 3) return 'table-devolucion'
+    },
+    showImportarCasos () {
+      this.$bvModal.show('modal-importar-casos')
+    },
+    subirArchivoImportar () {
+      this.estadoBoton = 'disabled'
+      const data = new FormData()
+      data.append('import_file', this.file, this.file.name)
+
+      axios.post('/casos/importar', data).then((res) => {
+        if (res.status === 200) {
+          console.log(res)
+          this.getCases()
+        }
+        this.$bvModal.hide('modal-importar-casos')
+        this.estadoBoton = ''
+        Vue.swal(res.data.message)
+      })
     }
   }
 }
