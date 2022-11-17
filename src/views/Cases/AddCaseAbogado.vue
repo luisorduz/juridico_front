@@ -17,6 +17,32 @@
                         <b-row>
                           <b-form-group
                             class="col-md-5"
+                            label="Cliente*"
+                            label-for="clinica_id"
+                          >
+                            <ValidationProvider
+                              name="clinicas"
+                              rules="required"
+                              v-slot="{ errors }"
+                            >
+                              <v-select
+                                v-model="caso.clinica_id"
+                                :options="clinicasOptions"
+                                :reduce="(label) => label.code"
+                                @input="getClientesClinica"
+                                label="label"
+                                id="clinica_id"
+                                :class="errors.length > 0 ? ' is-invalid' : ''"
+                              >
+                                <span slot="no-options">No hay clinicas.</span>
+                              </v-select>
+                              <div class="invalid-feedback">
+                                <span>Debe de seleccionar una clinicas</span>
+                              </div>
+                            </ValidationProvider>
+                          </b-form-group>
+                          <b-form-group
+                            class="col-md-5"
                             label="Solicitante*"
                             label-for="user_id"
                           >
@@ -41,6 +67,8 @@
                               </div>
                             </ValidationProvider>
                           </b-form-group>
+                        </b-row>
+                        <b-row>
                           <b-form-group
                             class="col-md-5"
                             label="Tipo de servicio*"
@@ -63,33 +91,6 @@
                               </v-select>
                               <div class="invalid-feedback">
                                 <span>Debe de seleccionar un Servicio</span>
-                              </div>
-                            </ValidationProvider>
-                          </b-form-group>
-                        </b-row>
-                        <b-row>
-                          <b-form-group
-                            class="col-md-5"
-                            label="Clinica*"
-                            label-for="clinica_id"
-                          >
-                            <ValidationProvider
-                              name="clinicas"
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                              <v-select
-                                v-model="caso.clinica_id"
-                                :options="clinicasOptions"
-                                :reduce="(label) => label.code"
-                                label="label"
-                                id="clinica_id"
-                                :class="errors.length > 0 ? ' is-invalid' : ''"
-                              >
-                                <span slot="no-options">No hay clinicas.</span>
-                              </v-select>
-                              <div class="invalid-feedback">
-                                <span>Debe de seleccionar una clinicas</span>
                               </div>
                             </ValidationProvider>
                           </b-form-group>
@@ -343,7 +344,6 @@ export default {
     xray.index()
     this.getActividades()
     this.getProfesionals()
-    this.getClientes()
     this.getServicios()
     this.getUserClinicas()
     setTimeout(() => {
@@ -391,6 +391,15 @@ export default {
     getServicios () {
       axios.get('/servicios/fetch').then((response) => {
         this.serviciosOptions = response.data.servicios
+      })
+    },
+    getClientesClinica () {
+      axios.get('/clinica/getcliente/' + this.caso.clinica_id).then((res) => {
+        if (res.status === 200) {
+          this.clientesOptions = res.data.users
+        } else {
+          Vue.swal(res.data.message)
+        }
       })
     },
     getTiempoAns () {
