@@ -96,26 +96,26 @@
                           </b-form-group>
                           <b-form-group
                             class="col-md-5"
-                            label="Asignado a *"
-                            label-for="abogado_id"
+                            label="Medio Solicitud*"
+                            label-for="medio_id"
                           >
                             <ValidationProvider
-                              name="abogado"
+                              name="Medios"
                               rules="required"
                               v-slot="{ errors }"
                             >
                               <v-select
-                                v-model="caso.abogado_id"
-                                :options="abogadosOptions"
+                                v-model="caso.medio_id"
+                                :options="mediosOptions"
                                 :reduce="(label) => label.code"
                                 label="label"
-                                id="abogado_id"
+                                id="medio_id"
                                 :class="errors.length > 0 ? ' is-invalid' : ''"
                               >
-                                <span slot="no-options">No hay Abogados.</span>
+                                <span slot="no-options">No hay Medio.</span>
                               </v-select>
                               <div class="invalid-feedback">
-                                <span>Debe de seleccionar un abogado</span>
+                                <span>Debe de seleccionar un medio</span>
                               </div>
                             </ValidationProvider>
                           </b-form-group>
@@ -185,31 +185,6 @@
                           </b-form-group>
                         </b-row>
                         <b-row>
-                          <b-form-group
-                            class="col-md-5"
-                            label="Medio Solicitud*"
-                            label-for="medio_id"
-                          >
-                            <ValidationProvider
-                              name="Medios"
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                              <v-select
-                                v-model="caso.medio_id"
-                                :options="mediosOptions"
-                                :reduce="(label) => label.code"
-                                label="label"
-                                id="medio_id"
-                                :class="errors.length > 0 ? ' is-invalid' : ''"
-                              >
-                                <span slot="no-options">No hay Medio.</span>
-                              </v-select>
-                              <div class="invalid-feedback">
-                                <span>Debe de seleccionar un medio</span>
-                              </div>
-                            </ValidationProvider>
-                          </b-form-group>
                           <b-form-group class="col-md-5" label="Proceso" label-for="ans_caso_prore_id">
                                     <v-select v-model="caso.ans_caso_prore_id" :options="processOptions" :reduce="label => label.code" label="label" id="ans_caso_prore_id">
                                       <span slot="no-options">No hay procesos.</span>
@@ -218,15 +193,6 @@
                         </b-row>
                       </b-col>
                       <b-col lg="10">
-                        <b-form-group label="Titulo*" label-for="case_title">
-                          <b-form-input
-                            class="col-md-6"
-                            v-model="caso.case_title"
-                            type="text"
-                            :required="true"
-                          ></b-form-input>
-                        </b-form-group>
-
                         <b-form-group
                           label="Descripción*"
                           label-for="textarea-decription"
@@ -343,7 +309,6 @@ export default {
   mounted () {
     xray.index()
     this.getActividades()
-    this.getProfesionals()
     this.getServicios()
     this.getUserClinicas()
     setTimeout(() => {
@@ -372,11 +337,6 @@ export default {
         .then((response) => {
           this.subactividadOptions = response.data.subactividades
         })
-    },
-    getProfesionals () {
-      axios.get('/professionals/fetch').then((response) => {
-        this.abogadosOptions = response.data.professionals
-      })
     },
     getClientes () {
       axios.get('/clientes/fetch').then((response) => {
@@ -453,12 +413,13 @@ export default {
 
       const data = new FormData()
 
-      data.append('case_title', this.caso.case_title)
       data.append('case_description', this.caso.case_description)
       data.append('user_id', this.caso.user_id)
       data.append('clinica_id', this.caso.clinica_id)
       data.append('servicio_id', this.caso.servicio_id)
-      data.append('profesional_id', this.caso.abogado_id)
+      if (this.userLogged.hasOwnProperty('pro_id')) {
+        data.append('profesional_id', this.userLogged.pro_id)
+      }
       data.append('subactividad_id', this.caso.subactividad_id)
       data.append('medio_id', this.caso.medio_id)
       data.append('ans_caso_prore_id', this.caso.ans_caso_prore_id)
