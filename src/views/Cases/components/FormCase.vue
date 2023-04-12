@@ -23,8 +23,18 @@
                         </v-select>
                       </b-form-group>
                     </b-col>
-                    <b-col xs="12">
-                      <b-form-group label="Asunto*" label-for="case_title">
+                    <b-col xs="6">
+                      <label for="textarea-decription">Asunto*
+                        <b-badge
+                          variant="info"
+                          style="margin-left: 5px"
+                          v-b-tooltip.hover
+                          title="En este campo da un titulo que englobe tu solicitud. Máximo 100 caracteres."
+                        >
+                          <em class="fa fa-info"></em>
+                        </b-badge>
+                      </label>
+                      <b-form-group label-for="case_title">
                         <b-form-input
                           v-model="caseTitle"
                           type="text"
@@ -32,68 +42,36 @@
                         ></b-form-input>
                       </b-form-group>
                     </b-col>
+                    <b-col xs="6">
+                      <b-form-group
+                        class="col-md-12"
+                        label="Actividad*"
+                        label-for="act_id"
+                      >
+                        <ValidationProvider
+                          name="Actividad"
+                          rules="required"
+                          v-slot="{ errors }"
+                        >
+                          <v-select
+                            v-model="caseActividadId"
+                            :options="actividadesOptions"
+                            :reduce="(label) => label.code"
+                            label="label"
+                            id="act_id"
+                            @input="getSubactividades"
+                            :class="errors.length > 0 ? ' is-invalid' : ''"
+                          >
+                          <span slot="no-options">No hay Actividades.</span>
+                          </v-select>
+                          <div class="invalid-feedback">
+                            <span>Debe de seleccionar una Actividad</span>
+                          </div>
+                        </ValidationProvider>
+                      </b-form-group>
+                    </b-col>
                   </b-row>
                   <b-row>
-                    <b-form-group
-                      class="col-md-6"
-                      label="Actividad*"
-                      label-for="act_id"
-                    >
-                    <ValidationProvider
-                              name="Actividad"
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                      <v-select
-                        v-model="caseActividadId"
-                        :options="actividadesOptions"
-                        :reduce="(label) => label.code"
-                        label="label"
-                        id="act_id"
-                        @input="getSubactividades"
-                        :class="errors.length > 0 ? ' is-invalid' : ''"
-                      >
-                        <span slot="no-options">No hay Actividades.</span>
-                      </v-select>
-                       <div class="invalid-feedback">
-                                <span>Debe de seleccionar una Actividad</span>
-                              </div>
-                            </ValidationProvider>
-                    </b-form-group>
-                    <b-form-group
-                      class="col-md-6"
-                      label="Subactividad*"
-                      label-for="subact_id"
-                    >
-                     <ValidationProvider
-                              name="Subctividad"
-                              rules="required"
-                              v-slot="{ errors }"
-                            >
-                      <v-select
-                        @input="getTiempoAns"
-                        v-model="subactividad_id"
-                        :options="subactividadesOptions"
-                        :reduce="(label) => label.code"
-                        label="label"
-                        id="subact_id"
-                        :class="errors.length > 0 ? ' is-invalid' : ''"
-                      >
-                        <span slot="no-options">No hay Subctividades.</span>
-                      </v-select>
-                       <div class="invalid-feedback">
-                                <span>Debe de seleccionar una Subctividad</span>
-                              </div>
-                            </ValidationProvider>
-                      <p
-                        :key="fechaSolucionKey"
-                        class="text-left"
-                        v-if="fechaSolucion !== null"
-                      >
-                        Fecha apróximada de solución o respuesta:
-                        {{ fechaSolucion }}
-                      </p>
-                    </b-form-group>
                   </b-row>
                   <b-row v-if="!esCliente()">
                     <b-col xs="12">

@@ -1,44 +1,50 @@
-# FROM node:14.16.1-alpine3.13 as build-stage
-# # make the 'app' folder the current working directory
-# WORKDIR /app
-# # copy 'package.json' to install dependencies
+# # 1er paso: Construir la aplicación con Node
+# FROM node:lts-alpine AS Builder
+# # Crear la carpeta necesaria para construir la aplicación
+# RUN mkdir -p /tmp/nginx/vue-app
+# # Configurar la carpeta en la que se deben ejecutar los siguientes comandos
+# WORKDIR /tmp/nginx/vue-app
+# # Copiar los siguientes archivos para instalar las dependencias
 # COPY package*.json ./
-# # install dependencies
+# # Instalar las dependencias y borrar caché de Node.js
+# RUN npm i
 # RUN npm cache clean --force
-# RUN apk add --no-cache git
-# RUN npm install
-# # copy files and folders to the current working directory (i.e. 'app' folder)
+# # Copiar todos los archivos de la aplicación en la carpeta del contendor
 # COPY . .
-# # build app for production with minification
+# # Contruir la aplicación
 # RUN npm run build
 
-# FROM nginx:1.13.12-alpine as production-stage
-
-# ## Remove default nginx index page
-# RUN rm -rf /usr/share/nginx/html/*
-
-# COPY --from=build-stage /app/dist /usr/share/nginx/html
+# # 2do paso: Mostrar la aplicación con Nginx
+# FROM nginx:stable-alpine
+# # Crear las carpetas necesarias para el servidor
+# RUN mkdir -p /var/log/nginx
+# RUN mkdir -p /var/www/html
+# # Copiar los archivos de configuración de Nginx
+# COPY nginx/nginx.conf /etc/nginx/nginx.conf
+# COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+# # Copiar los archivos finales de la aplicación en la carpeta del servidor
+# COPY --from=Builder /tmp/nginx/vue-app/dist /var/www/html
+# # Hacer que todos los archivos pertenezcan al usuario nginx
+# RUN chown -R nginx:nginx /var/www/html
+# # Abrir el puerto 80 del contenedor
 # EXPOSE 80
+# # Iniciar el servidor Nginx
 # CMD ["nginx", "-g", "daemon off;"]
-# FROM node:lts-alpine
-FROM node:14.16.1-alpine3.13
-# install simple http server for serving static content
-RUN npm install -g http-server
 
-# make the 'app' folder the current working directory
+# Usa una imagen de Node.js como base
+FROM node:14.17.0-alpine
+# Configura el directorio de trabajo en el contenedor
 WORKDIR /app
-
-# copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
-
-# install project dependencies
-RUN npm install
-
-# copy project files and folders to the current working directory (i.e. 'app' folder)
+# Copia los archivos del proyecto al contenedor
 COPY . .
-
-# build app for production with minification
+# Para los servidores que tienen certificado autofirmado, se excluye esa obligatoriedad
+RUN npm config set strict-ssl false
+RUN npm cache clean --force
+# Instala las dependencias del proyecto
+RUN npm install -g npm
+# Compila el proyecto
 RUN npm run build
-
+# Exponer el puerto 8080
 EXPOSE 8080
-CMD [ "http-server", "dist" ]
+# Comando para arrancar la aplicación
+CMD ["npm", "run", "start"]
